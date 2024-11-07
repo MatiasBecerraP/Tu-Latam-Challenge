@@ -162,6 +162,29 @@ Sobrecarga de Datos: Con 50 sistemas, el volumen de métricas y datos recolectad
 
 Costo: Cada métrica adicional y cada sistema monitoreado incrementan los costos. Las soluciones en la nube cobran por almacenamiento y procesamiento de métricas, y monitorear 50 sistemas puede ser costoso si no se optimiza.
 
+----------------- o ----------------------
+
+Parte 5: Alertas y SRE (Opcional)
+
+1. Definición de Reglas o Umbrales para Alertas
+definirremos la reglas y umbrales específicos para las métricas críticas, de modo que, si se superan ciertos límites, se disparen alertas al equipo.
+
+Latencia de la API:
+Umbral: Disparar una alerta si la latencia promedio de la API supera los 300 ms en un intervalo de 5 minutos.
+Justificación: Este umbral asegura que la API responda rápidamente. Si la latencia es alta, los usuarios pueden experimentar lentitud, lo cual afecta la experiencia general. La elección de 300 ms como límite se basa en proporcionar una experiencia fluida sin grandes demoras.
+
+Tasa de Errores de la API:
+Umbral: Generar una alerta si la tasa de errores supera el 1% de las solicitudes en un período de 5 minutos.
+Justificación: Si la API tiene demasiados errores, significa que algo no está funcionando bien, ya sea en la aplicación o en la infraestructura. Un límite del 1% permite identificar problemas antes de que se conviertan en fallas importantes.
+
+Cantidad de Mensajes Procesados en Pub/Sub:
+Umbral: Activar una alerta si el número de mensajes procesados cae por debajo del 90% del valor promedio diario durante un intervalo de 15 minutos.
+Justificación: Si el sistema no está procesando suficientes mensajes, puede deberse a un cuello de botella en la ingesta de datos o problemas de capacidad. 
+
+Codigo python para configurar una alerta en CloudWatch que monitoriza la latencia de la API:
+
+# el codigo se encontrara en la rama "master/devops/codigoalertacloudwatch5.1.py
+
 Ruido de Alertas: Sin una buena agrupación y lógica de alerta, podemos recibir demasiadas alertas que resulten en “alert fatigue” (fatiga de alertas). Esto hace que sea difícil para el equipo diferenciar entre problemas críticos y alertas falsas.
 
 --------------------- o ------------------
