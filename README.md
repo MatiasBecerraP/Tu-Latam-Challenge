@@ -28,24 +28,51 @@ Este proceso incluye tres pasos clave:
 
 "Aplicación del Plan (terraform apply) para crear los recursos en AWS".
 
-# el codigo se encontrara en la rama "master/devops/
+# el codigo se encontrara en la rama "master/devops/terraform.hcl y terraformbash.bash
 
 ----------- o ----------
 
 Parte 2: Aplicación y Flujo CI/CD
 2.1 API HTTP para Exponer los Datos
 Para el endpoint HTTP, creamos una función Lambda en Python. Esta función se conecta a la base de datos PostgreSQL, se realiza una consulta a los datos y devuelve el resultado en formato JSON.
-# el codigo se encontrara en la rama "master/devops/codigopython2.1"
+# el codigo se encontrara en la rama "master/devops/codigopython2.1.py"
 
 Asegúrarse de que los datos y el servidor de la API cumplan con requisitos de seguridad.
 
 Paso 2.2: Desplegar la API HTTP en la nube mediante CI/CD
 Para automatizar el despliegue de esta API, hemos configurado "GitHub Action" como pipeline de CI/CD. Cada vez que se realiza un cambio en el repositorio, GitHub Actions ejecuta el flujo, actualizando automáticamente la función Lambda en AWS. Esto asegura que los despliegues sean consistentes y ágiles.
 
-# el codigo se encontrara en la rama "master/devops/pipeline2.2"
+# el codigo se encontrara en la rama "master/devops/pipeline2.2.yaml"
 
+paso 2.3: Ingesta Opcional (Pub/Sub)
 
+Conecta el servicio Pub/Sub (como AWS SQS) a una función que procese los mensajes y los guarde en la base de datos.
 
+paso 2.4: Diagrama de Arquitectura
+El Pub/Sub recibe datos.
+Los datos ingresan a la base y luego se leen a través del API.
+
+# El diagrama en formato png se encontrara en la rama "master/devops/"
+
+El diagrama de arquitectura se encontara lo mas simplificado posible en el flujo de datos del sistema:
+
+Pub/Sub recibe los datos y los ingresa en la base de datos.
+Base de Datos Analítica almacena los datos.
+API HTTP esto lee los datos en la base de datos y los expone a los clientes mediante solicitudes GET.
+
+------- o --------
+
+Parte 3: Pruebas de Integración y Puntos Críticos de Calidad
+1. Implementación de Prueba de Integración en CI/CD para Verificar la API
+Propósito: Esta prueba tiene como objetivo asegurarnos de que la API esté funcionando correctamente y sea capaz de recuperar los datos de la base de datos cuando se le envía una solicitud GET. Es crucial porque permite confirmar que tanto la API como la base de datos están comunicándose sin problemas.
+
+Implementación: Dentro del flujo de CI/CD (usando GitHub Actions, por ejemplo), hemos creado un paso que ejecuta esta prueba de integración. La prueba realiza una solicitud a la API y evalúa dos aspectos principales:
+
+Código de Estado: Comprobamos que la API devuelva un código HTTP 200, indicando que la solicitud fue procesada exitosamente.
+Contenido de Respuesta: Verificamos que el JSON de respuesta contenga datos válidos, lo que asegura que la API está realmente conectada a la base de datos y devolviendo datos reales.
+Argumento: Esta prueba es fundamental, ya que cualquier fallo en ella indicaría problemas de conectividad o funcionalidad en la API, lo cual impactaría directamente en la experiencia del usuario final.
+
+# el codigo se encontrara en la rama "master/devops/
 
 
 
