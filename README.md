@@ -166,7 +166,7 @@ Costo: Cada métrica adicional y cada sistema monitoreado incrementan los costos
 
 Parte 5: Alertas y SRE (Opcional)
 
-1. Definición de Reglas o Umbrales para Alertas
+5.1. Definición de Reglas o Umbrales para Alertas
 definirremos la reglas y umbrales específicos para las métricas críticas, de modo que, si se superan ciertos límites, se disparen alertas al equipo.
 
 Latencia de la API:
@@ -185,7 +185,33 @@ Codigo python para configurar una alerta en CloudWatch que monitoriza la latenci
 
 # el codigo se encontrara en la rama "master/devops/codigoalertacloudwatch5.1.py
 
-Ruido de Alertas: Sin una buena agrupación y lógica de alerta, podemos recibir demasiadas alertas que resulten en “alert fatigue” (fatiga de alertas). Esto hace que sea difícil para el equipo diferenciar entre problemas críticos y alertas falsas.
+Este código configura una alerta en AWS CloudWatch que se activa si la latencia promedio supera los 300 ms en un intervalo de 5 minutos.
 
+5.2. Definición de Métricas SLIs y SLOs para el Sistema
+Se definen SLIs (Service Level Indicators) y SLOs (Service Level Objectives). Los SLIs son métricas clave que reflejan el rendimiento desde la perspectiva del usuario, y los SLOs son los objetivos de rendimiento que queremos cumplir en esas métricas.
+
+SLI de Latencia de la API:
+
+SLI: Tiempo de respuesta de la API en milisegundos.
+SLO: El 99% de las solicitudes de la API deben completarse en menos de 300 ms.
+Justificación: Un SLO de 99% asegura que la mayoría de los usuarios experimenten una respuesta rápida de la API. Un umbral de 300 ms proporciona una experiencia fluida, mientras que el 1% de margen tolera casos excepcionales, como sobrecarga.
+
+SLI de Tasa de Errores de la API:
+SLI: Porcentaje de errores (HTTP 5xx) en la API.
+SLO: No más del 0.5% de las solicitudes deben terminar en error.
+Justificación: Este SLO asegura que el sistema se mantenga confiable para los usuarios, estos limitan los errores a una mínima cantidad. La elección del 0.5% es un equilibrio entre permitir errores mínimos.
+
+SLI de Procesamiento en Pub/Sub:
+SLI: Tasa de mensajes procesados en Pub/Sub.
+SLO: Al menos el 95% de los mensajes recibidos deben procesarse exitosamente en menos de 5 minutos desde su llegada.
+Justificación: Este SLO garantiza que el sistema esté ingiriendo datos de manera oportuna para el análisis. Un 5% de margen permite tolerar fallos ocasionales,obetivo en la disponibilidad de los datos.
+
+Estos SLIs y SLOs están diseñados para la experiencia del usuario. Escogimos estas métricas en lugar de otras, como el uso de recursos (CPU, RAM) en los SLIs, porque se centran en la experiencia y percepción del usuario final, que es la prioridad en este sistema principal.
+
+Explicación del Descarte de Otras Métricas para los SLIs
+En este caso, descartamos métricas como el uso de CPU, RAM o disco porque, aunque importantes para el equipo de infraestructura, no reflejan de forma directa el rendimiento desde la perspectiva del usuario. Por esto los usuarios finales se ven más afectados por la latencia, errores de la API y tiempos de procesamiento, por lo que estos son los indicadores más críticos para definir la calidad del servicio.
 --------------------- o ------------------
+
+#todo se encontro analizando las preguntas solicitadas en el challenge y averiguando con bastante dedidcacion que respuestas eran mejor para cada situacion propuesta.
+#Muchas Gracias.
 
