@@ -141,11 +141,28 @@ Implementación General:
 Utilizamos AWS CloudWatch o Google Cloud Monitoring para configurar las métricas y alarmas, en función de los servicios que el sistema esté usando. Estas herramientas permiten monitorear servicios como bases de datos, servidores y funciones serverless (como Lambda).
 Recolección de Métricas: Las métricas como latencia de la API y tasa de errores se recolectan automáticamente con AWS CloudWatch cuando la API está configurada en un entorno de Amazon API Gateway. Para Pub/Sub, Google Cloud Monitoring recopila métricas de cantidad de mensajes y latencia en el procesamiento.
 
-Código de Ejemplo para AWS Lambda con CloudWatch:
+Código para AWS Lambda con CloudWatch:
 
-# el codigo se encontrara en la rama "master/devops/
+# el codigo se encontrara en la rama "master/devops/codigoawslambdaycloudwatch.py
 
 El código simula el registro de la latencia de la API en AWS CloudWatch, ayudándonos a monitorear los tiempos de respuesta.
 
+4.4. Visualización en un Escenario de Escalamiento a 50 sistemas similares si escalamos esta solución a 50 sistemas similares, Aquí es donde las herramientas de visualización necesitan capacidades avanzadas, como:
 
+Filtrado y Agrupación de Métricas: Para no ver 50 gráficos individuales, podemos agrupar las métricas en promedio o percentiles. Esto nos permite ver la salud general de los 50 sistemas sin sobrecargar el tablero.
+Mapas de Calor o Tableros de Estado: Estos tableros muestran un resumen rápido de la salud de cada sistema. Por ejemplo, cada sistema podría representarse como un cuadrado que cambia de color según su estado (verde para normal, rojo para los errores).
+
+Análisis Comparativo: Si un sistema específico tiene una tasa de errores o latencia anormal en comparación con los otros 49 sistemas, esto se resalta en el tablero, lo cual permite tomar acciones rápidamente.
+Este tipo de visualización escalada ayuda a gestionar grandes volúmenes de datos y a identificar problemas específicos en sistemas individuales o patrones anormales en todo el conjunto.
+
+4.5. Posibles Dificultades de Escalabilidad en la Observabilidad
+Si no se aborda adecuadamente el problema de escalabilidad en la observabilidad, podemos enfrentar varios desafíos:
+
+Sobrecarga de Datos: Con 50 sistemas, el volumen de métricas y datos recolectados puede ser muy alto, lo cual podría ralentizar la herramienta de monitoreo y dificultar la identificación de problemas clave.
+
+Costo: Cada métrica adicional y cada sistema monitoreado incrementan los costos. Las soluciones en la nube cobran por almacenamiento y procesamiento de métricas, y monitorear 50 sistemas puede ser costoso si no se optimiza.
+
+Ruido de Alertas: Sin una buena agrupación y lógica de alerta, podemos recibir demasiadas alertas que resulten en “alert fatigue” (fatiga de alertas). Esto hace que sea difícil para el equipo diferenciar entre problemas críticos y alertas falsas.
+
+--------------------- o ------------------
 
