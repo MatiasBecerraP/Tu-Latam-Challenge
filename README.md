@@ -35,4 +35,15 @@ Parte 2: Aplicación y Flujo CI/CD
 Para el endpoint HTTP, creamos una función Lambda en Python. Esta función se conecta a la base de datos PostgreSQL, se realiza una consulta a los datos y devuelve el resultado en formato JSON.
 # el codigo se encontrara en la rama "master/devops"
 
+Asegúrarse de que los datos y el servidor de la API cumplan con requisitos de seguridad.
+
+Paso 2.2: Desplegar la API HTTP en la nube mediante CI/CD
+Para automatizar el despliegue de esta API, hemos configurado "GitHub Action" como pipeline de CI/CD. Cada vez que se realiza un cambio en el repositorio, GitHub Actions ejecuta el flujo, actualizando automáticamente la función Lambda en AWS. Esto asegura que los despliegues sean consistentes y ágiles.
+
+# el codigo se encontrara en la rama "master/devops"
+
+
+
+
+
 
