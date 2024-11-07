@@ -212,6 +212,6 @@ Explicación del Descarte de Otras Métricas para los SLIs
 En este caso, descartamos métricas como el uso de CPU, RAM o disco porque, aunque importantes para el equipo de infraestructura, no reflejan de forma directa el rendimiento desde la perspectiva del usuario. Por esto los usuarios finales se ven más afectados por la latencia, errores de la API y tiempos de procesamiento, por lo que estos son los indicadores más críticos para definir la calidad del servicio.
 --------------------- o ------------------
 
-# todo se encontro analizando las preguntas solicitadas en el challenge y averiguando con bastante dedidcacion que respuestas eran mejor para cada situacion propuesta.
+# Todo se encontro analizando las preguntas solicitadas en el challenge y averiguando con bastante dedicación que respuestas eran mejor en cada situación.
 # Muchas Gracias.
 
